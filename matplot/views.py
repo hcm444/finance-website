@@ -2,6 +2,7 @@ import base64
 import io
 import urllib
 import matplotlib.pyplot as plt
+import pandas as pd
 # plotting
 import yfinance as yf
 # yahoo finance
@@ -13,8 +14,7 @@ stocks = 'TSLA'
 stocks_start = '2022-01-01'
 stocks_end = '2022-03-28'
 # create model here
-df_yahoo = yf.download(stocks, start=stocks_start, end=stocks_end, progress=False)
-
+df_yahoo = yf.download(stocks, start=stocks_start, end=stocks_end, progress=False, auto_adjust=True)
 
 
 # get info
@@ -23,12 +23,11 @@ def home(request):
     plt.plot(df_yahoo)
 
     # plotting
-    fig = plt.gcf()
-    buf = io.BytesIO()
-    fig.savefig(buf, format='png')
+    buffer = io.BytesIO()
+    plt.gcf().savefig(buffer, format='png')
     # .png format
-    buf.seek(0)
-    string = base64.b64encode(buf.read())
+    buffer.seek(0)
+    string = base64.b64encode(buffer.read())
     # base 64 lib
     uri = urllib.parse.quote(string)
     return render(request, 'home.html', {'data': uri})
