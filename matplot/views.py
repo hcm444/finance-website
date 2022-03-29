@@ -11,6 +11,7 @@ from django.shortcuts import render
 # for rendering
 stocks = []
 # create model here
+# multiple stocks
 stock1 = yf.download('MSFT', start='2022-01-01', end='2022-03-28', progress=False, auto_adjust=True)
 stock2 = yf.download('NVDA', start='2022-01-01', end='2022-03-28', progress=False, auto_adjust=True)
 stock3 = yf.download('APPL', start='2022-01-01', end='2022-03-28', progress=False, auto_adjust=True)
@@ -24,11 +25,13 @@ def home(request):
     plt.plot(stock2)
     plt.plot(stock3)
     plt.plot(stock4)
+    # plot them all
     # plotting
     return render(request, 'home.html', {'data1': (plot())})
     return render(request, 'home.html', {'data2': (plot())})
     return render(request, 'home.html', {'data3': (plot())})
     return render(request, 'home.html', {'data4': (plot())})
+    # print each on top
     # return to home.html
 
 
