@@ -9,17 +9,19 @@ from django.shortcuts import render
 
 # for rendering
 
-stock = 'TSLA'
-stock_start = '2022-01-01'
-stock_end = '2022-03-28'
+stocks = 'TSLA'
+stocks_start = '2022-01-01'
+stocks_end = '2022-03-28'
 # create model here
-df_yahoo = yf.download(stock, start=stock_start, end=stock_end, progress=False)
+df_yahoo = yf.download(stocks, start=stocks_start, end=stocks_end, progress=False)
+
 
 
 # get info
 # Create your views here.
 def home(request):
     plt.plot(df_yahoo)
+
     # plotting
     fig = plt.gcf()
     buf = io.BytesIO()
